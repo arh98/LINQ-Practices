@@ -75,10 +75,12 @@ static void GroupJoin() {
 
 static void AggregateProducts() {
     using NwContext db = new();
+
     WriteLine($"Count :   " + db.Products.Count());
-    WriteLine("highest price : "+ db.Products.Max(p => p.UnitPrice));
+    WriteLine("highest price : " + db.Products.Max(p => p.UnitPrice));
     WriteLine("sum of units in stock : " + db.Products.Sum(p => p.UnitsInStock));
     WriteLine("sum of units on order : " + db.Products.Sum(p => p.UnitsOnOrder));
     WriteLine("avg of prices : " + db.Products.Average(p => p.UnitPrice));
     WriteLine("value of units in stock : " + db.Products.Sum(p => p.UnitPrice * p.UnitsInStock));
 }
+

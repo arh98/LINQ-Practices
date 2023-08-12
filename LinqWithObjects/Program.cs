@@ -15,6 +15,7 @@ List<Exception> exceptions = new() {
     new ApplicationException()
 };
 
+
 string[] names = new[] {"Michael", "Pam", "Jim", "Dwight","Angela", "Kevin", "Toby", "Creed"};
 
 /* Filtering with Where

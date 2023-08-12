@@ -1,11 +1,13 @@
 ﻿using LinqWithEFCore.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using static System.Console;
 
 //FilterAndSort();
 //JoinCategoriesAndProducts();
 //GroupJoin();
-AggregateProducts();
+//AggregateProducts();
+OutputProductsAsXML();
 static void FilterAndSort() {
     using NwContext db = new();
     DbSet<Product> products = db.Products;
@@ -82,5 +84,20 @@ static void AggregateProducts() {
     WriteLine("sum of units on order : " + db.Products.Sum(p => p.UnitsOnOrder));
     WriteLine("avg of prices : " + db.Products.Average(p => p.UnitPrice));
     WriteLine("value of units in stock : " + db.Products.Sum(p => p.UnitPrice * p.UnitsInStock));
+}
+
+static void OutputProductsAsXML() {
+    using NwContext db = new();
+    Product[] products = db.Products.ToArray();
+
+    XElement xml = new("products",
+    from p in products
+    select new XElement("product",
+    new XAttribute("id", p.ProductId),
+    new XAttribute("price", p.UnitPrice),
+    new XElement("name", p.ProductName)));
+
+    WriteLine(xml.ToString());
+
 }
 
